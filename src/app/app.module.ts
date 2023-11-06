@@ -11,10 +11,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes} from '@angular/router';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
+import { FormsModule } from '@angular/forms';
+import { FormComponent } from './clientes/form.component';
 
 const routes:Routes = [
   {path:'', redirectTo:'/', pathMatch:'full'},
   {path:'clientes', component: ClientesComponent},
+  {path:'clientes/form', component: FormComponent},
+  {path:'clientes/form/:id', component: FormComponent},
   {path:'cuentas', component: CuentasComponent},
   {path:'movimientos', component: MovimientosComponent},
   {path:'reportes', component: ReportesComponent},
@@ -28,13 +32,15 @@ const routes:Routes = [
     CuentasComponent,
     ReportesComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    FormComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     RouterModule.forRoot(routes),
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
