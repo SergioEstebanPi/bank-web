@@ -1,1 +1,57 @@
-<p>movimientos works!</p>
+<div class="card border-primary mb-3">
+    <div class="card-header">
+      Movimientos
+    </div>
+    <div class="card-body">
+      <div class="card-title">
+        <div class="row">
+          <div class="col-12 col-md-12 col-xs-12">
+            <input type="text" placeholder="Buscar" />
+          </div>
+          <div class="col-12 col-md-12 col-xs-12">
+            <div class="text-right">
+              <button [routerLink]="['/movimientos/form']" 
+                type="button" 
+                name="button" 
+                class="btn btn-rounded btn-primary">Nuevo</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="alert alert-info" *ngIf="movimientos?.length==0">
+        No se encontraron registros
+      </div>
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped" *ngIf="movimientos.length>0">
+          <thead>
+              <tr>
+              <th>id</th>
+              <th>fecha</th>
+              <th>idCuenta</th>
+              <th>tipo</th>
+              <th>valor</th>
+              <th>saldo</th>
+              <th>acciones</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let movimiento of movimientos">
+              <th>{{ movimiento.id }}</th>
+              <th>{{ movimiento.idCuenta }}</th>
+              <th>{{ movimiento.fecha }}</th>
+              <th>{{ movimiento.tipo }}</th>
+              <th>{{ movimiento.valor }}</th>
+              <th>{{ movimiento.saldo }}</th>
+              <th>
+                <button type="button" name="button" [routerLink]="['/movimientos/form', movimiento.id]" class="btn btn-primary">Editar</button>
+                <button type="button" name="button" (click)="delete(movimiento)" class="btn btn-danger">Eliminar</button>
+              </th>
+              </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+  
