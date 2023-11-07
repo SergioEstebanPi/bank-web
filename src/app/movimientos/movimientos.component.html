@@ -23,7 +23,7 @@
         No se encontraron registros
       </div>
       <div class="table-responsive">
-        <table class="table table-bordered table-striped" *ngIf="movimientos.length>0">
+        <table class="table table-sm table-condensed table-bordered table-striped" *ngIf="movimientos.length>0">
           <thead>
               <tr>
               <th>id</th>
@@ -52,8 +52,10 @@
               </tr>
           </tbody>
         </table>
+        <!-- 
         <p>Paginas: {{movimientosPage.totalPages}}</p>
         <p>Total: {{movimientosPage.totalElements}}</p>
+        -->
       </div>
 
     </div>

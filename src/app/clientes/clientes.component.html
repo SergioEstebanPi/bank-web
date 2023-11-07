@@ -23,7 +23,7 @@
         No se encontraron registros
       </div>
       <div class="table-responsive">
-        <table class="table table-bordered table-striped" *ngIf="clientes.length>0">
+        <table class="table table-sm table-condensed table-bordered table-striped" *ngIf="clientes.length>0">
           <thead>
               <tr>
               <th>id</th>
@@ -59,8 +59,9 @@
               </tr>
           </tbody>
         </table>
-        <p>Paginas: {{clientesPage.totalPages}}</p>
+        <!-- <p>Paginas: {{clientesPage.totalPages}}</p>
         <p>Total: {{clientesPage.totalElements}}</p>
+        -->
       </div>
 
     </div>
