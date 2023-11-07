@@ -28,7 +28,7 @@
               <tr>
               <th>id</th>
               <th>fecha</th>
-              <th>idCuenta</th>
+              <th>numero</th>
               <th>tipo</th>
               <th>valor</th>
               <th>saldo</th>
@@ -38,8 +38,8 @@
           <tbody>
               <tr *ngFor="let movimiento of movimientos">
               <th>{{ movimiento.id }}</th>
-              <th>{{ movimiento.idCuenta }}</th>
-              <th>{{ movimiento.fecha }}</th>
+              <th>{{ movimiento.fecha | date: "yyyy-MM-dd HH:mm:ss"}}</th>
+              <th>{{ movimiento.numeroCuenta }}</th>
               <th>{{ movimiento.tipo }}</th>
               <th>{{ movimiento.valor }}</th>
               <th>{{ movimiento.saldo }}</th>

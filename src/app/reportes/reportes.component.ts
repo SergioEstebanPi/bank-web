@@ -31,6 +31,7 @@ export class ReportesComponent {
   clientes: Cliente[] = [];
 
   FORMATO_FECHA = "YYYY-MM-DD";
+  FORMATO_FECHA_HORA = "YYYY-MM-DD HH:MM:SS";
 
   constructor(private reporteService:ReportesService,
      private clienteService:ClientesService) {
@@ -77,7 +78,8 @@ export class ReportesComponent {
         datosTabla.push(encabezados);
 
         this.reportes.forEach(reporte => {
-          var fila = [reporte.fechaMovimiento, reporte.dni, reporte.nombreCliente,
+          let formattedFechaMov = (moment(reporte.fechaMovimiento).format(this.FORMATO_FECHA_HORA).toString());
+          var fila = [formattedFechaMov, reporte.dni, reporte.nombreCliente,
           reporte.numeroCuenta, reporte.tipoCuenta, reporte.saldoInicial,
           reporte.estado, reporte.valorMovimiento, reporte.saldoMovimiento];
           datosTabla.push(fila);

@@ -1,6 +1,6 @@
 export class Movimiento {
     id: number;
-    idCuenta: number;
+    numeroCuenta: string;
     fecha: Date;
     tipo: string;
     valor: number;
