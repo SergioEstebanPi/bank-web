@@ -12,7 +12,9 @@ import { RouterModule, Routes} from '@angular/router';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { FormsModule } from '@angular/forms';
-import { FormComponent } from './clientes/form.component';
+import { FormComponent as ClienteFormComponent } from './clientes/form.component';
+import { FormComponent as CuentaFormComponent } from './cuentas/form.component';
+import { FormComponent as MovimientoFormComponent } from './movimientos/form.component';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatDatepickerModule} from '@angular/material/datepicker';
@@ -23,6 +25,7 @@ import { MAT_DATE_FORMATS } from '@angular/material/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import {MatSelectModule} from '@angular/material/select';
 import { SearchPipe } from './search.pipe';
+import { SidebarComponent } from './sidebar/sidebar.component';
    
 export const MY_DATE_FORMATS = {
     parse: {
@@ -39,11 +42,15 @@ export const MY_DATE_FORMATS = {
 const routes:Routes = [
   {path:'', redirectTo:'/', pathMatch:'full'},
   {path:'clientes', component: ClientesComponent},
-  {path:'clientes/form', component: FormComponent},
-  {path:'clientes/form/:id', component: FormComponent},
+  {path:'clientes/form', component: ClienteFormComponent},
+  {path:'clientes/form/:id', component: ClienteFormComponent},
   {path:'cuentas', component: CuentasComponent},
+  {path:'cuentas/form', component: CuentaFormComponent},
+  {path:'cuentas/form/:id', component: CuentaFormComponent},
   {path:'movimientos', component: MovimientosComponent},
-  {path:'reportes', component: ReportesComponent},
+  {path:'movimientos/form', component: MovimientoFormComponent},
+  {path:'movimientos/form/:id', component: MovimientoFormComponent},
+  {path:'reportes', component: ReportesComponent}
 ];
 
 @NgModule({
@@ -55,8 +62,11 @@ const routes:Routes = [
     ReportesComponent,
     HeaderComponent,
     FooterComponent,
-    FormComponent,
-    SearchPipe
+    ClienteFormComponent,
+    CuentaFormComponent,
+    MovimientoFormComponent,
+    SearchPipe,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,

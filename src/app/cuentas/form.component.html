@@ -1,0 +1,50 @@
+<div class="card bg-dark text-white">
+    <div class="card-header">
+      <p *ngIf="!cuenta.id">{{ tituloCrear }}</p>
+      <p *ngIf="cuenta.id">{{ tituloEditar }}</p>
+    </div>
+    <div class="card-body">
+      <form>
+        <div class="form-group row">
+            <label for="" class="col-form-label col-sm-2">idCliente</label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" [(ngModel)]="cuenta.idCliente" name="idCliente">
+            </div>
+          </div>
+        <div class="form-group row">
+          <label for="" class="col-form-label col-sm-2">numero</label>
+          <div class="col-sm-6">
+            <input type="text" class="form-control" [(ngModel)]="cuenta.numero" name="numero">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="" class="col-form-label col-sm-2">tipo</label>
+          <div class="col-sm-6">
+            <input type="text" class="form-control" [(ngModel)]="cuenta.tipo" name="tipo">
+          </div>
+        </div>
+        <div class="form-group row">
+            <label for="" class="col-form-label col-sm-2">saldoInicial</label>
+            <div class="col-sm-6">
+                <input type="text" class="form-control" [(ngModel)]="cuenta.saldoInicial" name="saldoInicial">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="" class="col-form-label col-sm-2">saldo</label>
+            <div class="col-sm-6">
+                <input type="text" class="form-control" [(ngModel)]="cuenta.saldo" name="saldo">
+            </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-sm-6">
+            <button class="btn btn-secondary" type="button" routerLink="/cuentas" data-test="btn-back">Atras</button>
+            <button name="button" (click)="create()" *ngIf="!cuenta.id else elseBlock" class="btn btn-primary">Crear</button>
+            <ng-template #elseBlock>
+              <button name="button" (click)="update()" class="btn btn-primary">Editar</button>
+            </ng-template>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  

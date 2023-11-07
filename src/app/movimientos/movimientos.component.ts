@@ -40,16 +40,17 @@ export class MovimientosComponent implements OnInit {
     }).then((result) => {
       if (result.value) {
         this.movimientosService.delete(movimiento.id)
-          .subscribe(
-            respuesta => {
+          .subscribe({
+            next: (respuesta) => {
               this.movimientos = this.movimientos.filter(cli => cli != movimiento);
-            swal(
-              'Borrado!',
+            swal('Borrado!',
               `El movimiento ${movimiento.id} ha sido borrado con exito.`,
-              'success'
-            )
-          }
-          );
+              'success')
+            }, error: (err) => {
+              swal('Error',
+              `Error al intentar borrar`,
+              'error');
+            }});
       }
     });
   }

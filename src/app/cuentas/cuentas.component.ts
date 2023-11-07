@@ -40,16 +40,17 @@ export class CuentasComponent implements OnInit {
     }).then((result) => {
       if (result.value) {
         this.cuentaService.delete(cuenta.id)
-          .subscribe(
-            respuesta => {
-              this.cuentas = this.cuentas.filter(cli => cli != cuenta);
-            swal(
-              'Borrado!',
-              `La cuenta ${cuenta.numero} ha sido borrada con exito.`,
-              'success'
-            )
-          }
-          );
+          .subscribe({
+            next: (respuesta) => {
+                this.cuentas = this.cuentas.filter(cli => cli != cuenta);
+              swal('Borrado!',
+                `La cuenta ${cuenta.numero} ha sido borrada con exito.`,
+                'success')
+            }, error: (err) => {
+              swal('Error',
+              `Error al intentar borrar`,
+              'error');
+            }});
       }
     });
   }

@@ -40,16 +40,17 @@ export class ClientesComponent implements OnInit {
     }).then((result) => {
       if (result.value) {
         this.clienteService.delete(cliente.id)
-          .subscribe(
-            respuesta => {
+          .subscribe({
+            next: (respuesta) => {
               this.clientes = this.clientes.filter(cli => cli != cliente);
-            swal(
-              'Borrado!',
-              `El cliente ${cliente.nombre} ha sido borrado con exito.`,
-              'success'
-            )
-          }
-          );
+              swal('Borrado!',
+                `El cliente ${cliente.nombre} ha sido borrado con exito.`,
+                'success');
+          }, error: (err) => {
+            swal('Error',
+            `Error al intentar borrar`,
+            'error');
+          }});
       }
     });
   }

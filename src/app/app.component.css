@@ -1,0 +1,12 @@
+.body {
+    display: flex;
+}
+
+.layout-content {
+    width: 100%;
+    padding: 20px;
+}
+
+.side-menu {
+    max-width: calc(80vh - 50px);
+}

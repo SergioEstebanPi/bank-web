@@ -1,0 +1,32 @@
+<div class="card bg-dark text-white">
+    <div class="card-header">
+      <p *ngIf="!movimiento.id">{{ tituloCrear }}</p>
+      <p *ngIf="movimiento.id">{{ tituloEditar }}</p>
+    </div>
+    <div class="card-body">
+      <form>
+        <div class="form-group row">
+          <label for="" class="col-form-label col-sm-2">idCuenta</label>
+          <div class="col-sm-6">
+            <input type="text" class="form-control" [(ngModel)]="movimiento.idCuenta" name="idCuenta">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="" class="col-form-label col-sm-2">valor</label>
+          <div class="col-sm-6">
+            <input type="text" class="form-control" [(ngModel)]="movimiento.valor" name="valor">
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-sm-6">
+            <button class="btn btn-secondary" type="button" routerLink="/movimientos" data-test="btn-back">Atras</button>
+            <button name="button" (click)="create()" *ngIf="!movimiento.id else elseBlock" class="btn btn-primary">Crear</button>
+            <ng-template #elseBlock>
+              <button name="button" (click)="update()" class="btn btn-primary">Editar</button>
+            </ng-template>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  
