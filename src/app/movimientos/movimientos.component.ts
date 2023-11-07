@@ -21,6 +21,7 @@ export class MovimientosComponent implements OnInit {
   ngOnInit() {
     this.movimientosService.getMovimientos().subscribe(
       (movimientosPage) => {
+        this.movimientosPage = movimientosPage;
         this.movimientos = movimientosPage.content;
       }
     );

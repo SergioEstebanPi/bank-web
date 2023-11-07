@@ -1,1 +1,59 @@
-<p>cuentas works!</p>
+<div class="card border-primary mb-3">
+    <div class="card-header">
+      Cuentas
+    </div>
+    <div class="card-body">
+      <div class="card-title">
+        <div class="row">
+          <div class="col-12 col-md-12 col-xs-12">
+            <input type="text" placeholder="Buscar" />
+          </div>
+          <div class="col-12 col-md-12 col-xs-12">
+            <div class="text-right">
+              <button [routerLink]="['/cuentas/form']" 
+                type="button" 
+                name="button" 
+                class="btn btn-rounded btn-primary">Nuevo</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="alert alert-info" *ngIf="cuentas?.length==0">
+        No se encontraron registros
+      </div>
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped" *ngIf="cuentas.length>0">
+          <thead>
+              <tr>
+              <th>id</th>
+              <th>idCliente</th>
+              <th>numero</th>
+              <th>tipo</th>
+              <th>saldoInicial</th>
+              <th>saldo</th>
+              <th>acciones</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let cuenta of cuentas">
+              <th>{{ cuenta.id }}</th>
+              <th>{{ cuenta.idCliente }}</th>
+              <th>{{ cuenta.numero }}</th>
+              <th>{{ cuenta.tipo }}</th>
+              <th>{{ cuenta.saldoInicial }}</th>
+              <th>{{ cuenta.saldo }}</th>
+              <th>
+                <button type="button" name="button" [routerLink]="['/cuentas/form', cuenta.id]" class="btn btn-primary">Editar</button>
+                <button type="button" name="button" (click)="delete(cuenta)" class="btn btn-danger">Eliminar</button>
+              </th>
+              </tr>
+          </tbody>
+        </table>
+        <p>Paginas: {{cuentasPage.totalPages}}</p>
+        <p>Total: {{cuentasPage.totalElements}}</p>
+      </div>
+
+    </div>
+  </div>
+  
