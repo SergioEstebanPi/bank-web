@@ -49,7 +49,7 @@
           </div>
         <div class="form-group row">
           <div class="col-sm-6">
-            <button class="btn btn-secondary" type="button" routerLink="/clientes" data-test="btn-back">Atras</button>
+            <button class="btn btn-secondary" type="button" routerLink="/clientes" data-test="btn-back"><i class="bi bi-arrow-left"></i></button>
             <button name="button" (click)="create()" *ngIf="!cliente.id else elseBlock" class="btn btn-primary">Crear</button>
             <ng-template #elseBlock>
               <button name="button" (click)="update()" class="btn btn-primary">Editar</button>

@@ -44,8 +44,10 @@
               <th>{{ movimiento.valor }}</th>
               <th>{{ movimiento.saldo }}</th>
               <th>
-                <button type="button" name="button" [routerLink]="['/movimientos/form', movimiento.id]" class="btn btn-primary">Editar</button>
-                <button type="button" name="button" (click)="delete(movimiento)" class="btn btn-danger">Eliminar</button>
+                <div class="d-flex m-0 p-0">
+                  <button type="button" name="button" [routerLink]="['/movimientos/form', movimiento.id]" class="btn"><i class="bi bi-pen"></i></button>
+                  <button type="button" name="button" (click)="delete(movimiento)" class="btn"><i class="bi bi-trash"></i></button>
+                </div>
               </th>
               </tr>
           </tbody>

@@ -3,10 +3,10 @@
 }
 
 .layout-content {
-    width: 100%;
-    padding: 20px;
+    width: 80%;
+    padding: 15px;
 }
 
 .side-menu {
-    max-width: calc(80vh - 50px);
+    width: 20%;
 }

@@ -51,8 +51,10 @@
               <th>{{ cliente.estado }}</th>
 
               <th>
-                <button type="button" name="button" [routerLink]="['/clientes/form', cliente.id]" class="btn btn-primary">Editar</button>
-                <button type="button" name="button" (click)="delete(cliente)" class="btn btn-danger">Eliminar</button>
+                <div class="d-flex m-0 p-0">
+                  <button type="button" name="button" [routerLink]="['/clientes/form', cliente.id]" class="btn"><i class="bi bi-pen"></i></button>
+                  <button type="button" name="button" (click)="delete(cliente)" class="btn"><i class="bi bi-trash"></i></button>
+                </div>
               </th>
               </tr>
           </tbody>
