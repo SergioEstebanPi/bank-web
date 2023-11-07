@@ -1,4 +1,4 @@
-<div class="card bg-dark text-white">
+<div class="card">
     <div class="card-header">
       <p *ngIf="!cuenta.id">{{ tituloCrear }}</p>
       <p *ngIf="cuenta.id">{{ tituloEditar }}</p>
@@ -6,11 +6,15 @@
     <div class="card-body">
       <form>
         <div class="form-group row">
-            <label for="" class="col-form-label col-sm-2">idCliente</label>
-            <div class="col-sm-6">
-              <input type="text" class="form-control" [(ngModel)]="cuenta.idCliente" name="idCliente">
-            </div>
+          <label for="" class="col-form-label col-sm-2">idCliente</label>
+          <div class="col-sm-6">
+            <select required [(ngModel)]="cuenta.idCliente" class="form-control" aria-label="Default select example" name="idCuenta">
+              <option value="0" active>Selecciona una opción</option>
+              <option *ngFor="let cliente of clientesPage.content"
+                [value]="cliente.id">{{cliente.dni}} - {{cliente.nombre}}</option>
+            </select>
           </div>
+        </div>
         <div class="form-group row">
           <label for="" class="col-form-label col-sm-2">numero</label>
           <div class="col-sm-6">
@@ -20,19 +24,16 @@
         <div class="form-group row">
           <label for="" class="col-form-label col-sm-2">tipo</label>
           <div class="col-sm-6">
-            <input type="text" class="form-control" [(ngModel)]="cuenta.tipo" name="tipo">
+            <select required [(ngModel)]="cuenta.tipo" class="form-control" name="tipo">
+              <option value="Ahorros" active>Ahorros</option>
+              <option value="Corriente">Corriente</option>
+            </select>
           </div>
         </div>
         <div class="form-group row">
             <label for="" class="col-form-label col-sm-2">saldoInicial</label>
             <div class="col-sm-6">
                 <input type="text" class="form-control" [(ngModel)]="cuenta.saldoInicial" name="saldoInicial">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="" class="col-form-label col-sm-2">saldo</label>
-            <div class="col-sm-6">
-                <input type="text" class="form-control" [(ngModel)]="cuenta.saldo" name="saldo">
             </div>
         </div>
         <div class="form-group row">

@@ -4,6 +4,8 @@ import { CuentasService } from './cuentas.service';
 import { Router } from '@angular/router';
 import swal from 'sweetalert2';
 import { ActivatedRoute } from '@angular/router';
+import { ClientesService } from '../clientes/clientes.service';
+import { ClientePage } from '../clientes/cliente-page';
 
 @Component({
   selector: 'app-form',
@@ -12,10 +14,12 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class FormComponent implements OnInit {
   cuenta:Cuenta = new Cuenta();
+  clientesPage:ClientePage = new ClientePage();
   tituloCrear:string = "Crear cuenta";
   tituloEditar:string = "Editar cuenta";
 
   constructor(private cuentasService:CuentasService,
+    private clientesService:ClientesService,
     private router:Router,
     private activatedRoute:ActivatedRoute) {
   }
@@ -25,11 +29,20 @@ export class FormComponent implements OnInit {
   }
 
   cargarCuenta():void{
+    this.cuenta.idCliente = 0;
+    this.cuenta.tipo = "Ahorros";
+
+    this.clientesService.getClientes()
+      .subscribe(clientes => this.clientesPage = clientes);
+
     this.activatedRoute.params.subscribe(
       params => {
         let id = params['id'];
         if (id) {
-          this.cuentasService.getCuenta(id).subscribe(cuenta => this.cuenta = cuenta);
+          this.cuentasService.getCuenta(id)
+            .subscribe(cuenta => {
+              this.cuenta = cuenta
+            });
         }
       }
     );
@@ -49,7 +62,7 @@ export class FormComponent implements OnInit {
           console.log("ERROR");
           console.log(err);
           swal("Error cuenta",
-          `Cuenta ${this.cuenta.id}: ${err.error.errorMessage ? err.error.errorMessage: 'No realizado'}`,
+          `Error: ${err.error.errorMessage ? err.error.errorMessage: 'No realizado'}`,
           'error');
       }});
     ;

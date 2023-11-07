@@ -1,0 +1,32 @@
+footer {
+    font-size: 16px;
+    min-height: 50px;
+    min-width: 100%;
+    background-color: #f5f5f5;
+    overflow: hidden;
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.credits {
+    color: #000;
+    margin-top: 1rem;
+    font-weight: 500;
+    display: flex;
+    justify-content: center;
+}
+
+.credits ul {
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+}
+
+.copyrights {
+    margin-top: 1rem;
+    margin-bottom: 3rem;
+    color: #000;
+    font-family: Quicksand;
+    font-weight: 500;
+    font-size: 16px;
+}
