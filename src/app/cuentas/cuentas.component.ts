@@ -15,6 +15,7 @@ export class CuentasComponent implements OnInit {
 
   cuentasPage:CuentaPage = new CuentaPage;
   cuentas:Cuenta[] = [];
+  searchText:string;
 
   constructor(private cuentaService:CuentasService) { }
 

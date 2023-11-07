@@ -22,6 +22,7 @@ import { MomentDateModule } from '@angular/material-moment-adapter';
 import { MAT_DATE_FORMATS } from '@angular/material/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import {MatSelectModule} from '@angular/material/select';
+import { SearchPipe } from './search.pipe';
    
 export const MY_DATE_FORMATS = {
     parse: {
@@ -54,7 +55,8 @@ const routes:Routes = [
     ReportesComponent,
     HeaderComponent,
     FooterComponent,
-    FormComponent
+    FormComponent,
+    SearchPipe
   ],
   imports: [
     BrowserModule,

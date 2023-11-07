@@ -62,45 +62,65 @@ export class ReportesComponent {
 
   generatePdf() {
     this.dniCliente = this.selected.value;
-    let formattedFechaIni = (moment(this.filter.controls['fechaIni'].value)).format(this.FORMATO_FECHA).toString()
-    let formattedFechaFin = (moment(this.filter.controls['fechaFin'].value)).format(this.FORMATO_FECHA).toString()
+    let formattedFechaIni = this.formaterFecha(this.filter.controls['fechaIni'].value);
+    let formattedFechaFin = this.formaterFecha(this.filter.controls['fechaFin'].value);
 
-    this.reporteService.getReporte(this.dniCliente, formattedFechaIni, formattedFechaFin).subscribe(
+    this.reporteService.getReporte(
+      this.dniCliente, 
+      formattedFechaIni, 
+      formattedFechaFin).subscribe(
       (reportesPage) => {
         this.reportes = reportesPage.content;
 
-        var encabezados = ["Fecha", 
-        "Dni", "Nombre", "NumeroCuenta", 
+        var encabezados = ["Fecha", "Nombre", "NumeroCuenta", 
         "Tipo", "SaldoInicial", "Estado", 
         "Movimiento", "Saldo"];
 
         var datosTabla:any[] = [];
         datosTabla.push(encabezados);
 
+        let nombre = "";
+
         this.reportes.forEach(reporte => {
-          let formattedFechaMov = (moment(reporte.fechaMovimiento).format(this.FORMATO_FECHA_HORA).toString());
-          var fila = [formattedFechaMov, reporte.dni, reporte.nombreCliente,
+          nombre = reporte.nombreCliente;
+          var fila = [this.formatearFechaHora(reporte.fechaMovimiento), reporte.nombreCliente,
           reporte.numeroCuenta, reporte.tipoCuenta, reporte.saldoInicial,
           reporte.estado, reporte.valorMovimiento, reporte.saldoMovimiento];
           datosTabla.push(fila);
         });
 
         const docDefinition = {
-          content: [ { text: "Reporte de movimientos de la cuenta", style: "header" },
-            "Se muestran los movimientos de la cuenta",
+          content: [ 
+            { text: "Reporte de movimientos de clientes", style: "header" },
+            { text: "DNI: " + this.dniCliente + ", Cliente: " + nombre, style: "normal" },
+            { text: "Fecha inicial: " + formattedFechaIni + " - Fecha final: " + formattedFechaFin, style: "normal"},
+            { text: ""},
+            {text: "A continuación se muestra el detalle los movimientos hechos por el cliente", style: "tableExample"},
             {text: "Tabla", style: "subheader"},
-            {style: "tableExample", table: {header: encabezados, body: datosTabla}}
+            {table: {header: encabezados, body: datosTabla}, style: "tableExample"},
+            {text: "Paginas: " + reportesPage.totalPages, style: "footer"},
+            {text: "Total: " + reportesPage.totalElements, style: "footer"},
           ],
     
           styles: {
-            header: { fontSize: 18, bold: true, margin: [0, 0, 0, 10] },
-            subheader: { fontSize: 16, bold: true, margin: [0, 10, 0, 5] },
-            tableExample: { fontSize: 10, margin: [0, 5, 0, 5] }
+            header: { fontSize: 16, bold: true, margin: [0, 10, 0, 10], align: "center"},
+            subheader: { fontSize: 14, bold: true, margin: [0, 10, 0, 5] },
+            normal: { fontSize: 9, bold: true },
+            tableExample: { fontSize: 10, margin: [0, 5, 0, 5] },
+            footer: { fontSize: 9, bold: true},
           }
         };
     
         pdfMake.createPdf(docDefinition).download("reporte.pdf");
       }
     );
+  }
+
+  formaterFecha(fecha:Date){
+    return (moment(fecha)).format(this.FORMATO_FECHA).toString();
+  }
+
+  formatearFechaHora(fecha:Date) {
+    return (moment(fecha).format(this.FORMATO_FECHA_HORA).toString());
   }
 }

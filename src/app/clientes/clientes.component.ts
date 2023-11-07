@@ -15,6 +15,7 @@ export class ClientesComponent implements OnInit {
 
   clientesPage:ClientePage = new ClientePage;
   clientes:Cliente[] = [];
+  searchText:string;
 
   constructor(private clienteService:ClientesService) { }
 

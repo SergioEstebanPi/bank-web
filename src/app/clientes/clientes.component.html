@@ -6,7 +6,7 @@
       <div class="card-title">
         <div class="row">
           <div class="col-12 col-md-12 col-xs-12">
-            <input type="text" placeholder="Buscar" />
+            <input type="text" placeholder="Buscar" [(ngModel)]="searchText" />
           </div>
           <div class="col-12 col-md-12 col-xs-12">
             <div class="text-right">
@@ -39,7 +39,7 @@
               </tr>
           </thead>
           <tbody>
-              <tr *ngFor="let cliente of clientes">
+              <tr *ngFor="let cliente of clientes | search: searchText">
               <th>{{ cliente.id }}</th>
               <th>{{ cliente.dni }}</th>
               <th>{{ cliente.nombre }}</th>

@@ -15,6 +15,7 @@ export class MovimientosComponent implements OnInit {
 
   movimientosPage:MovimientoPage = new MovimientoPage;
   movimientos:Movimiento[] = [];
+  searchText:string;
 
   constructor(private movimientosService:MovimientosService) { }
 
