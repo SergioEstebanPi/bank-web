@@ -12,7 +12,7 @@ import { HttpHeaders } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
-export class reportesService {
+export class ReportesService {
 
   private urlEndpoint:string = "http://localhost:8080/reporte";
   private httpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
@@ -20,8 +20,10 @@ export class reportesService {
   constructor(private http: HttpClient) {
   }
 
-  getReporte(dniCliente:number):Observable<ReportePage>{
-    return this.http.get<ReportePage>(`${this.urlEndpoint}?dni=${dniCliente}&fechaInicial=2023-10-01&fechaFinal=2023-12-01&page=0&size=10`);
+  getReporte(dniCliente:number, fechaIni:string, fechaFin:string):Observable<ReportePage>{
+    return this.http.get<ReportePage>(
+      `${this.urlEndpoint}?dni=${dniCliente}&fechaInicial=${fechaIni}&fechaFinal=${fechaFin}&page=0&size=10`
+    );
   }
 
 }

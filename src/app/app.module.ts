@@ -13,6 +13,27 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { FormsModule } from '@angular/forms';
 import { FormComponent } from './clientes/form.component';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { MomentDateModule } from '@angular/material-moment-adapter';
+import { MAT_DATE_FORMATS } from '@angular/material/core';
+import { ReactiveFormsModule } from '@angular/forms';
+import {MatSelectModule} from '@angular/material/select';
+   
+export const MY_DATE_FORMATS = {
+    parse: {
+      dateInput: 'YYYY-MM-DD',
+    },
+    display: {
+      dateInput: 'YYYY-MM-DD',
+      monthYearLabel: 'MMMM YYYY',
+      dateA11yLabel: 'LL',
+      monthYearA11yLabel: 'MMMM YYYY'
+    },
+};
 
 const routes:Routes = [
   {path:'', redirectTo:'/', pathMatch:'full'},
@@ -40,9 +61,19 @@ const routes:Routes = [
     AppRoutingModule,
     HttpClientModule,
     RouterModule.forRoot(routes),
-    FormsModule
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatNativeDateModule,
+    MatDatepickerModule,
+    MomentDateModule,
+    ReactiveFormsModule,
+    MatSelectModule
   ],
-  providers: [],
+  providers: [
+    provideAnimations(),
+    { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
