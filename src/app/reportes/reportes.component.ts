@@ -4,11 +4,11 @@ import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 import { ReportePage } from './reporte-page';
 import { Reporte } from './reporte';
 import { ReportesService } from './reportes.service';
-import * as moment from 'moment';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Cliente } from '../clientes/cliente';
 import { ClientesService } from '../clientes/clientes.service';
 import { Validators } from '@angular/forms';
+import { Formater } from '../util/formater';
 
 const pdf = pdfMake;
 pdf.vfs = pdfFonts.pdfMake.vfs;
@@ -27,11 +27,8 @@ export class ReportesComponent {
   fechaFin:string;
   filter:FormGroup;
   selected:FormControl;
-
+  formater:Formater;
   clientes: Cliente[] = [];
-
-  FORMATO_FECHA = "YYYY-MM-DD";
-  FORMATO_FECHA_HORA = "YYYY-MM-DD HH:MM:SS";
 
   constructor(private reporteService:ReportesService,
      private clienteService:ClientesService) {
@@ -44,26 +41,22 @@ export class ReportesComponent {
       }
     );
 
-    this.selected = new FormControl('', [Validators.required]);
-
-    const now = new Date();
-    const monthAgo = new Date(now.getFullYear(), now.getMonth() - 1, now.getDate(), now.getHours());
-
-    // fechas por defecto
-    this.fechaIni = moment(monthAgo, this.FORMATO_FECHA).toISOString()
-    this.fechaFin = moment(now, this.FORMATO_FECHA).toISOString()
+    this.formater = new Formater();
+    this.fechaIni = this.formater.fechaIniMothAgo();
+    this.fechaFin = this.formater.fechaFinNow();
   
     this.filter = new FormGroup({
       fechaIni: new FormControl(this.fechaIni, []),
       fechaFin: new FormControl(this.fechaFin, [])
     });
+    this.selected = new FormControl('', [Validators.required]);
   }
 
 
   generatePdf() {
     this.dniCliente = this.selected.value;
-    let formattedFechaIni = this.formaterFecha(this.filter.controls['fechaIni'].value);
-    let formattedFechaFin = this.formaterFecha(this.filter.controls['fechaFin'].value);
+    let formattedFechaIni = this.formater.formaterFecha(this.filter.controls['fechaIni'].value);
+    let formattedFechaFin = this.formater.formaterFecha(this.filter.controls['fechaFin'].value);
 
     this.reporteService.getReporte(
       this.dniCliente, 
@@ -83,7 +76,7 @@ export class ReportesComponent {
 
         this.reportes.forEach(reporte => {
           nombre = reporte.nombreCliente;
-          var fila = [this.formatearFechaHora(reporte.fechaMovimiento), reporte.nombreCliente,
+          var fila = [this.formater.formatearFechaHora(reporte.fechaMovimiento), reporte.nombreCliente,
           reporte.numeroCuenta, reporte.tipoCuenta, reporte.saldoInicial,
           reporte.estado, reporte.valorMovimiento, reporte.saldoMovimiento];
           datosTabla.push(fila);
@@ -114,13 +107,5 @@ export class ReportesComponent {
         pdfMake.createPdf(docDefinition).download("reporte.pdf");
       }
     );
-  }
-
-  formaterFecha(fecha:Date){
-    return (moment(fecha)).format(this.FORMATO_FECHA).toString();
-  }
-
-  formatearFechaHora(fecha:Date) {
-    return (moment(fecha).format(this.FORMATO_FECHA_HORA).toString());
   }
 }

@@ -8,7 +8,11 @@
         <div class="form-group row">
           <label for="" class="col-form-label col-sm-2">idCuenta</label>
           <div class="col-sm-6">
-            <input type="text" class="form-control" [(ngModel)]="movimiento.idCuenta" name="idCuenta">
+            <select required [(ngModel)]="movimiento.idCuenta" class="form-control" aria-label="Default select example" name="idCuenta">
+              <option value="0" active>Selecciona una opción</option>
+              <option *ngFor="let cuenta of cuentasPage.content"
+                [value]="cuenta.id">{{cuenta.id}} - {{cuenta.numero}}</option>
+            </select>
           </div>
         </div>
         <div class="form-group row">

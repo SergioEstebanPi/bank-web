@@ -4,6 +4,8 @@ import { ClientesService } from './clientes.service';
 import { Router } from '@angular/router';
 import swal from 'sweetalert2';
 import { ActivatedRoute } from '@angular/router';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Formater } from '../util/formater';
 
 @Component({
   selector: 'app-form',
@@ -14,6 +16,9 @@ export class FormComponent implements OnInit {
   cliente:Cliente = new Cliente();
   tituloCrear:string = "Crear cliente";
   tituloEditar:string = "Editar cliente";
+  filter:FormGroup;
+  nacimiento:string;
+  formater:Formater;
 
   constructor(private clientesService:ClientesService,
     private router:Router,
@@ -21,10 +26,17 @@ export class FormComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.formater = new Formater();
+    this.nacimiento = this.formater.fechaFinNow();
+    this.filter = new FormGroup({
+      nacimiento: new FormControl(this.nacimiento, [])
+    });
+
     this.cargarCliente();
   }
 
   cargarCliente():void{
+    this.cliente.genero = "M";
     this.activatedRoute.params.subscribe(
       params => {
         let id = params['id'];
@@ -36,6 +48,7 @@ export class FormComponent implements OnInit {
   }
 
   create():void{
+    this.cliente.nacimiento = this.formater.formaterFecha(this.filter.controls['nacimiento'].value);
     console.log("Clicked");
     console.log(this.cliente);
     this.clientesService.create(this.cliente)
@@ -56,6 +69,7 @@ export class FormComponent implements OnInit {
   }
 
   update():void{
+    this.cliente.nacimiento = this.formater.formaterFecha(this.filter.controls['nacimiento'].value);
     this.clientesService.update(this.cliente)
     .subscribe({
       next: (respuesta) => {

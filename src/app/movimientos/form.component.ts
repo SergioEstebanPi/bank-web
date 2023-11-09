@@ -4,6 +4,8 @@ import { MovimientosService } from './movimientos.service';
 import { Router } from '@angular/router';
 import swal from 'sweetalert2';
 import { ActivatedRoute } from '@angular/router';
+import { CuentaPage } from '../cuentas/cuenta-page';
+import { CuentasService } from '../cuentas/cuentas.service';
 
 @Component({
   selector: 'app-form',
@@ -14,8 +16,10 @@ export class FormComponent implements OnInit {
   movimiento:Movimiento = new Movimiento();
   tituloCrear:string = "Crear movimiento";
   tituloEditar:string = "Editar movimiento";
+  cuentasPage:CuentaPage = new CuentaPage();
 
   constructor(private movimientosService:MovimientosService,
+    private cuentasService:CuentasService,
     private router:Router,
     private activatedRoute:ActivatedRoute) {
   }
@@ -25,11 +29,16 @@ export class FormComponent implements OnInit {
   }
 
   cargarMovimiento():void{
+    this.movimiento.idCuenta = 0;
     this.activatedRoute.params.subscribe(
       params => {
         let id = params['id'];
         if (id) {
-          this.movimientosService.getMovimiento(id).subscribe(movimiento => this.movimiento = movimiento);
+          this.movimientosService.getMovimiento(id)
+            .subscribe(movimiento => this.movimiento = movimiento);
+        } else {
+          this.cuentasService.getCuentas()
+            .subscribe(cuentas => this.cuentasPage = cuentas);
         }
       }
     );

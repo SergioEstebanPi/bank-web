@@ -30,10 +30,7 @@ export class FormComponent implements OnInit {
 
   cargarCuenta():void{
     this.cuenta.idCliente = 0;
-    this.cuenta.tipo = "Ahorros";
-
-    this.clientesService.getClientes()
-      .subscribe(clientes => this.clientesPage = clientes);
+    this.cuenta.tipo = "Ahorro";
 
     this.activatedRoute.params.subscribe(
       params => {
@@ -43,6 +40,9 @@ export class FormComponent implements OnInit {
             .subscribe(cuenta => {
               this.cuenta = cuenta
             });
+        } else {
+          this.clientesService.getClientes()
+            .subscribe(clientes => this.clientesPage = clientes);
         }
       }
     );

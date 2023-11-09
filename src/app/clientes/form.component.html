@@ -20,13 +20,21 @@
         <div class="form-group row">
           <label for="" class="col-form-label col-sm-2">genero</label>
           <div class="col-sm-6">
-            <input type="text" class="form-control" [(ngModel)]="cliente.genero" name="genero">
+            <select required [(ngModel)]="cliente.genero" class="form-control" aria-label="Default select example" name="genero">
+              <option value="M" active>Masculino</option>
+              <option value="F">Femenino</option>
+            </select>
           </div>
         </div>
         <div class="form-group row">
             <label for="" class="col-form-label col-sm-2">nacimiento</label>
             <div class="col-sm-6">
-                <input type="text" class="form-control" [(ngModel)]="cliente.nacimiento" name="nacimiento">
+              <mat-form-field [formGroup]="filter">
+                  <input matInput [matDatepicker]="pickerNac" formControlName="nacimiento">
+                  <mat-hint>YYYY-MM-DD</mat-hint>
+                  <mat-datepicker-toggle matIconSuffix [for]="pickerNac"></mat-datepicker-toggle>
+                  <mat-datepicker #pickerNac></mat-datepicker>
+              </mat-form-field>
             </div>
         </div>
         <div class="form-group row">
