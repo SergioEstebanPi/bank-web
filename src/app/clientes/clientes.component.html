@@ -26,16 +26,16 @@
         <table class="table table-sm table-condensed table-bordered table-striped" *ngIf="clientes.length>0">
           <thead>
               <tr>
-              <th>id</th>
-              <th>dni</th>
-              <th>nombre</th>
-              <th>genero</th>
-              <th>nacimiento</th>
-              <th>direccion</th>
-              <th>telefono</th>
-              <th>contrasena</th>
-              <th>estado</th>
-              <th>acciones</th>
+              <th>Id</th>
+              <th>Dni</th>
+              <th>Nombre</th>
+              <th>Genero</th>
+              <th>Nacimiento</th>
+              <th>Direccion</th>
+              <th>Telefono</th>
+              <th>Contrasena</th>
+              <th>Estado</th>
+              <th>Acciones</th>
               </tr>
           </thead>
           <tbody>
@@ -48,7 +48,7 @@
               <th>{{ cliente.direccion }}</th>
               <th>{{ cliente.telefono }}</th>
               <th>{{ cliente.contrasena }}</th>
-              <th>{{ cliente.estado }}</th>
+              <th>{{ cliente.estado == 1 ? 'Activo' : 'Inactivo' }}</th>
 
               <th>
                 <div class="d-flex m-0 p-0">
