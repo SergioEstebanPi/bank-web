@@ -36,7 +36,7 @@ export class ClientesComponent implements OnInit {
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Si, borrar archivo!'
+      confirmButtonText: 'Si, borrar cliente!'
     }).then((result) => {
       if (result.value) {
         this.clienteService.delete(cliente.id)

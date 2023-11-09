@@ -36,7 +36,7 @@ export class MovimientosComponent implements OnInit {
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Si, borrar archivo!'
+      confirmButtonText: 'Si, borrar movimiento!'
     }).then((result) => {
       if (result.value) {
         this.movimientosService.delete(movimiento.id)
