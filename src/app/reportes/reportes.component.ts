@@ -25,8 +25,8 @@ export class ReportesComponent {
   dniCliente:number;
   fechaIni:string;
   fechaFin:string;
-  filter:FormGroup;
-  selected:FormControl;
+  filterIni:FormGroup;
+  filterFin:FormGroup;
   formater:Formater;
   clientes: Cliente[] = [];
 
@@ -35,6 +35,7 @@ export class ReportesComponent {
   }
 
   ngOnInit() {
+    this.dniCliente = 0;
     this.clienteService.getClientes().subscribe(
       (clientesPage) => {
         this.clientes = clientesPage.content;
@@ -45,18 +46,18 @@ export class ReportesComponent {
     this.fechaIni = this.formater.fechaIniMothAgo();
     this.fechaFin = this.formater.fechaFinNow();
   
-    this.filter = new FormGroup({
-      fechaIni: new FormControl(this.fechaIni, []),
+    this.filterIni = new FormGroup({
+      fechaIni: new FormControl(this.fechaIni, [])
+    });
+    this.filterFin = new FormGroup({
       fechaFin: new FormControl(this.fechaFin, [])
     });
-    this.selected = new FormControl('', [Validators.required]);
   }
 
 
   generatePdf() {
-    this.dniCliente = this.selected.value;
-    let formattedFechaIni = this.formater.formaterFecha(this.filter.controls['fechaIni'].value);
-    let formattedFechaFin = this.formater.formaterFecha(this.filter.controls['fechaFin'].value);
+    let formattedFechaIni = this.formater.formaterFecha(this.filterIni.controls['fechaIni'].value);
+    let formattedFechaFin = this.formater.formaterFecha(this.filterFin.controls['fechaFin'].value);
 
     this.reporteService.getReporte(
       this.dniCliente, 

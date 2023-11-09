@@ -1,45 +1,49 @@
-<div class="card mb-3">
+<div class="card">
     <div class="card-header">
       Reportes
     </div>
     <div class="card-body">
-        <form [formGroup]="filter" (ngSubmit)="generatePdf()">
-            <label class="">Seleccione el cliente</label>
-            <div class="form-group">
-                <mat-form-field [formGroup]="filter">
-                <mat-label>Seleccione el cliente</mat-label>
-                <mat-select [formControl]="selected" >
-                    <mat-option *ngFor="let cliente of clientes" [value]="cliente.dni">
-                    {{cliente.dni}} - {{cliente.nombre}}
-                    </mat-option>
-                </mat-select>
-                </mat-form-field>
+        <form (ngSubmit)="generatePdf()">
+            <div class="form-group row">
+                <label for="" class="col-form-label col-sm-2">Seleccione el cliente</label>
+                <div class="col-sm-6">
+                    <select required [(ngModel)]="dniCliente" class="form-control" aria-label="Default select example" name="dniCliente">
+                        <option value="0" active>Selecciona una opción</option>
+                        <option *ngFor="let cliente of clientes"
+                        [value]="cliente.dni">{{cliente.dni}} - {{cliente.nombre}}</option>
+                    </select>
+                </div>
             </div>
-
-            <label>Fecha Inicial</label>
-            <div class="form-group">
-                <mat-form-field>
-                    <mat-label>Fecha Inicial</mat-label>
-                    <input matInput [matDatepicker]="pickerIni" formControlName="fechaIni">
-                    <mat-hint>YYYY-MM-DD</mat-hint>
-                    <mat-datepicker-toggle matIconSuffix [for]="pickerIni"></mat-datepicker-toggle>
-                    <mat-datepicker #pickerIni></mat-datepicker>
-                </mat-form-field>
+            <div [formGroup]="filterIni" class="form-group row">
+                <label for="" class="col-form-label col-sm-2">Fecha Inicial</label>
+                <div class="col-sm-6">
+                    <mat-form-field>
+                        <mat-label>Fecha Inicial</mat-label>
+                        <input matInput [matDatepicker]="pickerIni" formControlName="fechaIni">
+                        <mat-hint>YYYY-MM-DD</mat-hint>
+                        <mat-datepicker-toggle matIconSuffix [for]="pickerIni"></mat-datepicker-toggle>
+                        <mat-datepicker #pickerIni></mat-datepicker>
+                    </mat-form-field>
+                </div>
             </div>
             
-            <label>Fecha Final</label>
-            <div class="form-group">
-                <mat-form-field>
-                    <mat-label>Fecha Final</mat-label>
-                    <input matInput [matDatepicker]="pickerFin" formControlName="fechaFin">
-                    <mat-hint>YYYY-MM-DD</mat-hint>
-                    <mat-datepicker-toggle matIconSuffix [for]="pickerFin"></mat-datepicker-toggle>
-                    <mat-datepicker #pickerFin></mat-datepicker>
-                </mat-form-field>
+            <div [formGroup]="filterFin" class="form-group row">
+                <label for="" class="col-form-label col-sm-2">Fecha Final</label>
+                <div class="col-sm-6">
+                    <mat-form-field>
+                        <mat-label>Fecha Final</mat-label>
+                        <input matInput [matDatepicker]="pickerFin" formControlName="fechaFin">
+                        <mat-hint>YYYY-MM-DD</mat-hint>
+                        <mat-datepicker-toggle matIconSuffix [for]="pickerFin"></mat-datepicker-toggle>
+                        <mat-datepicker #pickerFin></mat-datepicker>
+                    </mat-form-field>
+                </div>
             </div>
         
-            <div class="form-group">
-                <button class="btn btn-primary" type="submit">Descargar Reporte PDF</button>
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <button class="btn btn-primary" type="submit">Descargar Reporte PDF</button>
+                </div>
             </div>
         </form>
     </div>
