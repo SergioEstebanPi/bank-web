@@ -30,15 +30,14 @@ export class FormComponent implements OnInit {
 
   cargarMovimiento():void{
     this.movimiento.idCuenta = 0;
+    this.cuentasService.getCuentas()
+      .subscribe(cuentas => this.cuentasPage = cuentas);
     this.activatedRoute.params.subscribe(
       params => {
         let id = params['id'];
         if (id) {
           this.movimientosService.getMovimiento(id)
             .subscribe(movimiento => this.movimiento = movimiento);
-        } else {
-          this.cuentasService.getCuentas()
-            .subscribe(cuentas => this.cuentasPage = cuentas);
         }
       }
     );

@@ -32,6 +32,9 @@ export class FormComponent implements OnInit {
     this.cuenta.idCliente = 0;
     this.cuenta.tipo = "Ahorro";
 
+    this.clientesService.getClientes()
+      .subscribe(clientes => this.clientesPage = clientes);
+
     this.activatedRoute.params.subscribe(
       params => {
         let id = params['id'];
@@ -40,9 +43,6 @@ export class FormComponent implements OnInit {
             .subscribe(cuenta => {
               this.cuenta = cuenta
             });
-        } else {
-          this.clientesService.getClientes()
-            .subscribe(clientes => this.clientesPage = clientes);
         }
       }
     );
