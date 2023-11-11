@@ -58,62 +58,64 @@ export class ReportesComponent {
 
 
   generatePdf() {
-    let formattedFechaIni = this.formater.formaterFecha(this.filterIni.controls['fechaIni'].value);
-    let formattedFechaFin = this.formater.formaterFecha(this.filterFin.controls['fechaFin'].value);
-
-    this.reporteService.getReporte(
-      this.dniCliente, 
-      formattedFechaIni, 
-      formattedFechaFin).subscribe({
-        next: (reportesPage) => {
-        this.reportes = reportesPage.content;
-
-        var encabezados = ["Fecha", "Nombre", "NumeroCuenta", 
-        "Tipo", "SaldoInicial", "Estado", 
-        "Movimiento", "Saldo"];
-
-        var datosTabla:any[] = [];
-        datosTabla.push(encabezados);
-
-        let nombre = "";
-
-        this.reportes.forEach(reporte => {
-          nombre = reporte.nombreCliente;
-          var fila = [this.formater.formatearFechaHora(reporte.fechaMovimiento), reporte.nombreCliente,
-          reporte.numeroCuenta, reporte.tipoCuenta, reporte.saldoInicial,
-          reporte.estado == 1 ? 'Activo' : 'Inactivo', reporte.valorMovimiento, reporte.saldoMovimiento];
-          datosTabla.push(fila);
-        });
-
-        const docDefinition = {
-          content: [ 
-            { text: "Reporte de movimientos de clientes", style: "header" },
-            { text: "DNI: " + this.dniCliente + ", Cliente: " + nombre, style: "normal" },
-            { text: "Fecha inicial: " + formattedFechaIni + " - Fecha final: " + formattedFechaFin, style: "normal"},
-            { text: ""},
-            {text: "A continuación se muestra el detalle los movimientos hechos por el cliente", style: "tableExample"},
-            {text: "Tabla", style: "subheader"},
-            {table: {header: encabezados, body: datosTabla}, style: "tableExample"},
-            {text: "Paginas: " + reportesPage.totalPages, style: "footer"},
-            {text: "Total: " + reportesPage.totalElements, style: "footer"},
-          ],
-    
-          styles: {
-            header: { fontSize: 16, bold: true, margin: [0, 10, 0, 10], align: "center"},
-            subheader: { fontSize: 14, bold: true, margin: [0, 10, 0, 5] },
-            normal: { fontSize: 9, bold: true },
-            tableExample: { fontSize: 10, margin: [0, 5, 0, 5] },
-            footer: { fontSize: 9, bold: true},
-          }
-        };
-    
-        pdfMake.createPdf(docDefinition).download("reporte.pdf");
-      }, error: (err) => {
-        console.log("ERROR");
-        console.log(err);
-        swal("Error reporte",
-        `Debe seleccionar un DNI cliente`,
-        'error');
-      }});
+    if(this.dniCliente){
+      let formattedFechaIni = this.formater.formaterFecha(this.filterIni.controls['fechaIni'].value);
+      let formattedFechaFin = this.formater.formaterFecha(this.filterFin.controls['fechaFin'].value);
+  
+      this.reporteService.getReporte(
+        this.dniCliente, 
+        formattedFechaIni, 
+        formattedFechaFin).subscribe({next: (reportesPage) => {
+          this.reportes = reportesPage.content;
+          var encabezados = ["Fecha", "Nombre", "NumeroCuenta", 
+          "Tipo", "SaldoInicial", "Estado", 
+          "Movimiento", "Saldo"];
+          var datosTabla:any[] = [];
+          datosTabla.push(encabezados);
+          let nombre = "";
+  
+          this.reportes.forEach(reporte => {
+            nombre = reporte.nombreCliente;
+            var fila = [this.formater.formatearFechaHora(reporte.fechaMovimiento), reporte.nombreCliente,
+            reporte.numeroCuenta, reporte.tipoCuenta, reporte.saldoInicial,
+            reporte.estado == 1 ? 'Activo' : 'Inactivo', reporte.valorMovimiento, reporte.saldoMovimiento];
+            datosTabla.push(fila);
+          });
+  
+          const docDefinition = {
+            content: [ 
+              { text: "Reporte de movimientos de clientes", style: "header" },
+              { text: "DNI: " + this.dniCliente + ", Cliente: " + nombre, style: "normal" },
+              { text: "Fecha inicial: " + formattedFechaIni + " - Fecha final: " + formattedFechaFin, style: "normal"},
+              { text: ""},
+              {text: "A continuación se muestra el detalle los movimientos hechos por el cliente", style: "tableExample"},
+              {text: "Tabla", style: "subheader"},
+              {table: {header: encabezados, body: datosTabla}, style: "tableExample"},
+              {text: "Paginas: " + reportesPage.totalPages, style: "footer"},
+              {text: "Total: " + reportesPage.totalElements, style: "footer"},
+            ],
+      
+            styles: {
+              header: { fontSize: 16, bold: true, margin: [0, 10, 0, 10], align: "center"},
+              subheader: { fontSize: 14, bold: true, margin: [0, 10, 0, 5] },
+              normal: { fontSize: 9, bold: true },
+              tableExample: { fontSize: 10, margin: [0, 5, 0, 5] },
+              footer: { fontSize: 9, bold: true},
+            }
+          };
+          pdfMake.createPdf(docDefinition).download("reporte.pdf");
+  
+          }, error: (err) => {
+            console.log("ERROR");
+            console.log(err);
+            swal("Error reporte",
+            `Error al generar reporte: ${err.error.errorMessage ? err.error.errorMessage : ''}`,
+            'error');
+          }});
+    } else {
+      swal("Error reporte",
+      `Debe seleccionar un DNI cliente`,
+      'error');
+    }
   }
 }
