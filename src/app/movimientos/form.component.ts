@@ -58,7 +58,7 @@ export class FormComponent implements OnInit {
         console.log("ERROR");
         console.log(err);
         swal("Error movimiento",
-        `Cuenta ${this.movimiento.idCuenta}: ${err.error.errorMessage ? err.error.errorMessage: 'No realizado'}`,
+        `Movimiento no creado debe seleccionar un idCuenta`,
         'error');
       }})
     ;
@@ -76,7 +76,7 @@ export class FormComponent implements OnInit {
         console.log("ERROR");
         console.log(err);
         swal("Error movimiento",
-        `Cuenta ${this.movimiento.idCuenta}: ${err.error.errorMessage ? err.error.errorMessage: 'No realizado'}`,
+        `No fue posible actualizar el movimiento`,
         'error');
       }});
   }

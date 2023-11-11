@@ -62,7 +62,7 @@ export class FormComponent implements OnInit {
           console.log("ERROR");
           console.log(err);
           swal("Error cuenta",
-          `Error: ${err.error.errorMessage ? err.error.errorMessage: 'No realizado'}`,
+          `Cuenta no creada debe seleccionar un idCliente`,
           'error');
       }});
     ;
@@ -80,7 +80,7 @@ export class FormComponent implements OnInit {
           console.log("ERROR");
           console.log(err);
           swal("Error cuenta",
-          `Cuenta ${this.cuenta.id}: ${err.error.errorMessage ? err.error.errorMessage: 'No realizado'}`,
+          `Cuenta ${this.cuenta.id}: ${err.error.errorMessage ? err.error.errorMessage: 'No actualizada'}`,
           'error');
       }});
   }

@@ -5,13 +5,13 @@
     <div class="card-body">
       <div class="card-title">
         <div class="row">
-          <div class="col-12 col-md-6 col-xs-6">
-            <input type="text" placeholder="Buscar" [(ngModel)]="searchText" />
+          <div class="col-12 col-md-9 col-xs-9">
+            <input class="col-6" type="text" placeholder="Buscar" [(ngModel)]="searchText" />
           </div>
-          <div class="col-12 col-md-6 col-xs-6">
-            <div class="text-right">
+          <div class="col-12 col-md-3 col-xs-3">
+            <div class="d-flex justify-content-end">
               <button [routerLink]="['/movimientos/form']" 
-                type="button" 
+                type="button"
                 name="button" 
                 class="btn btn-rounded btn-primary">Nuevo</button>
             </div>

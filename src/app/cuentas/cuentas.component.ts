@@ -34,7 +34,7 @@ export class CuentasComponent implements OnInit {
       text: `Eliminar la cuenta ${cuenta.numero}. No es posible deshacer este cambio!`,
       type: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
+      confirmButtonColor: '#ffe23f',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Si, borrar archivo!'
     }).then((result) => {

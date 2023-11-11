@@ -63,7 +63,7 @@ export class FormComponent implements OnInit {
           console.log("ERROR");
           console.log(err);
           swal("Error cliente",
-          `Cliente ${this.cliente.nombre}: ${err.error.errorMessage ? err.error.errorMessage: 'No realizado'}`,
+          `No fue posible crear el cliente, debe llenar los campos`,
           'error');
       }});
   }
@@ -81,7 +81,7 @@ export class FormComponent implements OnInit {
         console.log("ERROR");
         console.log(err);
         swal("Error cliente",
-        `Cliente ${this.cliente.nombre}: ${err.error.errorMessage ? err.error.errorMessage: 'No realizado'}`,
+        `Cliente ${this.cliente.nombre}: ${err.error.errorMessage ? err.error.errorMessage: 'No actualizado'}`,
         'error');
       }});
   }

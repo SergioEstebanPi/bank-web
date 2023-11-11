@@ -9,6 +9,8 @@ import { Cliente } from '../clientes/cliente';
 import { ClientesService } from '../clientes/clientes.service';
 import { Validators } from '@angular/forms';
 import { Formater } from '../util/formater';
+import { error } from 'console';
+import swal from 'sweetalert2';
 
 const pdf = pdfMake;
 pdf.vfs = pdfFonts.pdfMake.vfs;
@@ -62,8 +64,8 @@ export class ReportesComponent {
     this.reporteService.getReporte(
       this.dniCliente, 
       formattedFechaIni, 
-      formattedFechaFin).subscribe(
-      (reportesPage) => {
+      formattedFechaFin).subscribe({
+        next: (reportesPage) => {
         this.reportes = reportesPage.content;
 
         var encabezados = ["Fecha", "Nombre", "NumeroCuenta", 
@@ -79,7 +81,7 @@ export class ReportesComponent {
           nombre = reporte.nombreCliente;
           var fila = [this.formater.formatearFechaHora(reporte.fechaMovimiento), reporte.nombreCliente,
           reporte.numeroCuenta, reporte.tipoCuenta, reporte.saldoInicial,
-          reporte.estado, reporte.valorMovimiento, reporte.saldoMovimiento];
+          reporte.estado == 1 ? 'Activo' : 'Inactivo', reporte.valorMovimiento, reporte.saldoMovimiento];
           datosTabla.push(fila);
         });
 
@@ -106,7 +108,12 @@ export class ReportesComponent {
         };
     
         pdfMake.createPdf(docDefinition).download("reporte.pdf");
-      }
-    );
+      }, error: (err) => {
+        console.log("ERROR");
+        console.log(err);
+        swal("Error reporte",
+        `Debe seleccionar un DNI cliente`,
+        'error');
+      }});
   }
 }
