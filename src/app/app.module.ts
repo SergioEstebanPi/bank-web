@@ -40,7 +40,7 @@ export const MY_DATE_FORMATS = {
 };
 
 const routes:Routes = [
-  {path:'', redirectTo:'/', pathMatch:'full'},
+  {path:'', redirectTo:'/clientes', pathMatch:'full'},
   {path:'clientes', component: ClientesComponent},
   {path:'clientes/form', component: ClienteFormComponent},
   {path:'clientes/form/:id', component: ClienteFormComponent},
